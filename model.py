@@ -42,6 +42,10 @@ class Movie(db.Model):
 
     rating = db.relationship("Rating")
 
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+        return "**Movie movie_id=%s title=%s**" % (self.movie_id, self.title) 
+
 class Rating(db.Model):
     """Ratings for movies from users"""
 
@@ -54,6 +58,10 @@ class Rating(db.Model):
 
     movie = db.relationship("Movie")
     user = db.relationship("User")
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+        return "**Rating rating_id=%s movie_id=%s score=%s**" % (self.rating_id, self.movie_id, self.score) 
 
 ##############################################################################
 # Helper functions
