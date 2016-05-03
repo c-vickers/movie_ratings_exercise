@@ -7,6 +7,7 @@ from model import User
 
 from model import connect_to_db, db
 from server import app
+import datetime
 
 
 def load_users():
@@ -43,7 +44,12 @@ def load_movies():
 
     for row in open("seed_data/u.item"):
         row = row.rstrip()
-        movie_id, title, released_at, imdb_url = row.split("|")
+        movie_id, title, released_str, imdb_url = row.split("|")
+
+        if released_str:
+            released_at = datetime.datetime.strptime(released_str, "%d-%b-%Y")
+        else:
+            released_at = None
 
         movie = Movie(movie_id=movie_id, title=title,
             released_at=released_at, imdb_url=imdb_url)
