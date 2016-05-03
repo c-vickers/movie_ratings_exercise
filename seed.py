@@ -2,8 +2,8 @@
 
 from sqlalchemy import func
 from model import User
-# from model import Rating
-# from model import Movie
+from model import Rating
+from model import Movie
 
 from model import connect_to_db, db
 from server import app
@@ -44,7 +44,8 @@ def load_movies():
 
     for row in open("seed_data/u.item"):
         row = row.rstrip()
-        movie_id, title, released_str, imdb_url = row.split("|")
+        movie_id, title_str, released_str, vid_release, imdb_url = row.split("|")[0:5]
+        title = title_str.rsplit(" ",1)[0]
 
         if released_str:
             released_at = datetime.datetime.strptime(released_str, "%d-%b-%Y")
@@ -68,7 +69,7 @@ def load_ratings():
 
     for row in open("seed_data/u.data"):
         row = row.rstrip()
-        user_id, movie_id, score = row.split()
+        user_id, movie_id, score = row.split()[0:3]
 
         rating = Rating(user_id=user_id, movie_id=movie_id, score=score)
 
