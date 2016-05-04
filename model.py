@@ -40,7 +40,7 @@ class Movie(db.Model):
     released_at = db.Column(db.DateTime, nullable=True)
     imdb_url = db.Column(db.String(164), nullable=True)
 
-    rating = db.relationshsuip("Rating")
+    rating = db.relationship("Rating")
 
     def __repr__(self):
         """Provide helpful representation when printed."""
