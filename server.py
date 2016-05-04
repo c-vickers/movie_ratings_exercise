@@ -37,7 +37,7 @@ def login():
 
 	return render_template("login.html")
 
-@app.route("/process_login" methods=["POST"])
+@app.route("/process_login", methods=["POST"])
 def process_login():
 	"""Return users to homepage after verifying login info"""
 	
@@ -45,7 +45,12 @@ def process_login():
 	password = request.form.get("password")
 
 	users = User.query.all()
+	print users
 	# neeed to start here tomorrow morning with verifying user and password in database
+	# If username matches email in User, verify password entered matches passwore in User for username
+	# Add a flash message to tell them they are logged in
+	# If not route to new user sign up page <-- create an html form...
+	# ...that posts to database and reroutes to homepage
 	return render_template("homepage.html")
 
 if __name__ == "__main__":
