@@ -31,6 +31,22 @@ def user_list():
 	users = User.query.all()
 	return render_template("user_list.html", users=users)
 
+@app.route("/login")
+def login():
+	"""User login form"""
+
+	return render_template("login.html")
+
+@app.route("/process_login" methods=["POST"])
+def process_login():
+	"""Return users to homepage after verifying login info"""
+	
+	username = request.form.get("username")
+	password = request.form.get("password")
+
+	users = User.query.all()
+	# neeed to start here tomorrow morning with verifying user and password in database
+	return render_template("homepage.html")
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the point
