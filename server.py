@@ -63,7 +63,7 @@ def process_login():
 @app.route("/add_user", methods=['POST'])
 def add_user():
 	username = request.form.get("username")
-	password = request.form.get("password")
+	password = request.form.get("authen")
 	age = request.form.get("age")
 	zipcode = request.form.get("zip")
 
@@ -73,6 +73,14 @@ def add_user():
 	db.session.commit()
 
 	flash('You are now registered!')
+
+	return render_template('homepage.html')
+
+
+@app.route("/logout")
+def logout():
+	session['user_id'] = None
+	flash("You are now logged out.")
 
 	return render_template('homepage.html')
 
