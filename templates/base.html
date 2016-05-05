@@ -5,8 +5,10 @@
 </head>
 
 <body>
-	{% if user_id in session %}
+	{% if session['user_id'] %}
 		<a href="/logout">Log out!</a>
+	{% else %}
+		<a href="/login">Log in!</a> 
 	{% endif %}
 
   <hr>
