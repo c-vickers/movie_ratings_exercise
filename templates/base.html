@@ -5,6 +5,10 @@
 </head>
 
 <body>
+	{% if user_id in session %}
+		<a href="/logout">Log out!</a>
+	{% endif %}
+
   <hr>
 
 	{% for message in get_flashed_messages() %}
