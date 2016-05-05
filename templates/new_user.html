@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Register for the Magical Movie Rating Portal ~! </h1>
+
+<form action="/add_user" method="POST">
+	Register E-mail: <input type="text" name="username" required><br>
+	Desired Password: <input type="text" name"password" required><br>
+	Age: <input type="text" name="age"><br>
+	Zipcode: <input type="text" name="zip"><br>
+	<input type="submit" value="Register Me!">
+
+</form>
+
+
+{% endblock %}
