@@ -43,15 +43,38 @@ def process_login():
 	
 	username = request.form.get("username")
 	password = request.form.get("password")
+	#use .first() instead of all 
+	check_user = User.query.filter_by(email = username).first() 
+	if check_user == None:
+		return render_template("new_user.html") #If None route to new user sign up page...
+	#...create an html form that posts to database and reroutes to homepage
+	else: # If username in User
+		if password == check_user.password:
+			session['user_id'] = check_user.user_id
+			flash('You are now logged in!') # Add a flash message to tell them they are logged in
+			return render_template("homepage.html")
+		#verify password entered matches password in User for username
+		else:
+			flash('Your password and username didn\'t match')
 
-	users = User.query.all()
-	print users
-	# neeed to start here tomorrow morning with verifying user and password in database
-	# If username matches email in User, verify password entered matches passwore in User for username
-	# Add a flash message to tell them they are logged in
-	# If not route to new user sign up page <-- create an html form...
-	# ...that posts to database and reroutes to homepage
-	return render_template("homepage.html")
+	return render_template("login.html")
+
+
+@app.route("/add_user", methods=['POST'])
+def add_user():
+	username = request.form.get("username")
+	password = request.form.get("password")
+	age = request.form.get("age")
+	zipcode = request.form.get("zip")
+
+	new_user = User(email=username, password=password, age=age, zipcode=zipcode)
+
+	db.session.add(new_user)
+	db.session.commit()
+
+	flash('You are now registered!')
+
+	return render_template('homepage.html')
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the point
