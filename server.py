@@ -113,6 +113,21 @@ def movie_info(movie_id):
 	return render_template('movie_info.html', movie=movie_n, ratings = ratings)
 
 
+@app.route("/add_score/<int:movie_id>", methods=['POST'])
+def add_score(movie_id):
+	score = request.form.get("score")
+	user = session['user_id']
+	new_score = Rating(movie_id=movie_id, user_id=user, score=score)
+	db.session.add(new_score)
+	db.session.commit()
+
+	flash('Your rating has been registered!')
+
+	return render_template('homepage.html')
+
+
+
+
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the point
     # that we invoke the DebugToolbarExtension
