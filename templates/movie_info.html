@@ -5,6 +5,20 @@
 <p>Release Date: {{ movie.released_at }}</p>
 <p>IMDB: <a href="{{ movie.imdb_url }}">{{ movie.title }} on IMDB</a></p>
 
+	{% if session['user_id'] %}
+	<p> Rate {{ movie.title }} </p>
+		<form action="/add_score/{{ movie.movie_id }}" method="POST">
+			<input type="radio" name="score" value="1"> 1
+			<input type="radio" name="score" value="2"> 2
+			<input type="radio" name="score" value="3"> 3
+			<input type="radio" name="score" value="4"> 4
+			<input type="radio" name="score" value="5"> 5
+			<input type="submit" value="Rate Me!">
+
+		</form>
+	{% endif %}
+
+
 <ul>
 <h4> Scores for {{ movie.title }} </h4>
 
