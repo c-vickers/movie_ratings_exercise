@@ -84,6 +84,19 @@ def logout():
 
 	return render_template('homepage.html')
 
+@app.route("/users/<int:user_id>")
+def user_info(user_id):
+	
+	user_n = User.query.get(user_id)
+	m_and_r = []
+	ratings = Rating.query.filter_by(user_id = user_id).all()
+
+	for rating in ratings:
+		movie = Movie.query.filter_by(movie_id = rating.movie_id).first()
+		m_and_r.append((movie.title, rating.score))
+
+	return render_template('user_info.html', user=user_n, m_and_r=m_and_r)
+
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the point
     # that we invoke the DebugToolbarExtension
